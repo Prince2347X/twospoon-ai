@@ -1,0 +1,11 @@
+# Delivery checklist
+- [ ] Deterministic feed, exact OHLCV and plausible 10+ level book
+- [ ] Per-client tiers, hysteresis, timeout fallback, force override
+- [ ] REST/WS integration and meaningful backend tests
+- [ ] Flutter book synchronization/recovery and candle merge tests
+- [ ] Networking, RTT/jitter, lifecycle, reconnect, stale states
+- [ ] Responsive screen, chart touch inspection, intervals, recent trades
+- [ ] Deep linking and watchlist reordering
+- [ ] Android build and runtime verification
+- [ ] Screen recording and README covering all assignment topics
+- [ ] Public GitHub URL and final requirement audit
