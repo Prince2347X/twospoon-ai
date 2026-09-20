@@ -11,8 +11,19 @@ A Flutter Android market screen and a deterministic FastAPI cryptocurrency simul
 
 The prebuilt APK uses `http://10.0.2.2:8000` (Android emulator host). For a physical device, build with `--dart-define=API_URL=http://YOUR_COMPUTER_LAN_IP:8000`, or use the loopback/reverse setup below. The recording uses the existing physical-device debug build connected to the running backend; the release APK was built separately.
 
+
 <img src="docs/media/live-market.png" alt="Live Bitcoin market in dark mode" width="280" />
 <img src="docs/media/book-trades.png" alt="Ten-level order book and recent trades" width="280" />
+
+## Video demos
+
+### Launch demo
+
+<video src="docs/media/launch-demo.mp4" controls title="TwoSpoon launch demo" width="280"></video>
+
+### Physical-device demo
+
+<video src="docs/media/twospoon-demo.mp4" controls title="TwoSpoon physical-device demo" width="280"></video>
 
 ## Run
 
