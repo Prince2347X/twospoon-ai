@@ -16,12 +16,12 @@ The prebuilt APK uses `http://10.0.2.2:8000` (Android emulator host). For a phys
 <img src="docs/media/book-trades.png" alt="Ten-level order book and recent trades" width="280" />
 
 ## Video demos
-
 ### Launch demo
-
-<video src="docs/media/launch-demo.mp4" controls title="TwoSpoon launch demo" width="280"></video>
+https://github.com/user-attachments/assets/372bc522-7eee-4724-8e29-d9973cfd8cc3
 
 ### Physical-device demo
+https://github.com/user-attachments/assets/482da8b7-ef04-43e5-b9ab-03f0636e9e9c
+
 
 <video src="docs/media/twospoon-demo.mp4" controls title="TwoSpoon physical-device demo" width="280"></video>
 
