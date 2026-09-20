@@ -2,6 +2,18 @@
 
 A Flutter Android market screen and a deterministic FastAPI cryptocurrency simulator. There are no exchange accounts, external market feeds, real orders, or funds. BTC/USD is the only simulated instrument.
 
+## Deliverables
+
+- Planned public repository: `Prince2347X/twospoon-ai` (publication awaiting approval)
+- Android APK: `mobile/build/app/outputs/flutter-apk/app-release.apk` (built; release publication awaiting approval)
+- [Physical-device screen recording](docs/media/twospoon-demo.mp4) (60 seconds)
+- [Verification results and recording timeline](docs/verification.md): 11 backend tests, 12 Flutter tests, clean analysis, and physical Android interaction checks.
+
+The prebuilt APK uses `http://10.0.2.2:8000` (Android emulator host). For a physical device, build with `--dart-define=API_URL=http://YOUR_COMPUTER_LAN_IP:8000`, or use the loopback/reverse setup below. The recording uses the existing physical-device debug build connected to the running backend; the release APK was built separately.
+
+<img src="docs/media/live-market.png" alt="Live Bitcoin market in dark mode" width="280" />
+<img src="docs/media/book-trades.png" alt="Ten-level order book and recent trades" width="280" />
+
 ## Run
 
 Requires Python 3.12+, Flutter 3.41 / Dart 3.11+, and an Android SDK.
@@ -93,7 +105,7 @@ These rates balance a fluid local connection with fewer chart repaints on a dela
 
 On disconnect the app retains cached data with a stale indicator. It reconnects with exponential delays (1, 2, 4, 8, 16 seconds, plus up to 250 ms jitter), then resubscribes and refetches history/book. A silent socket or a pong outstanding over 10 seconds also triggers reconnect. Background/hidden/detached lifecycle states cancel connections, timers and subscriptions. Foreground reconnects and resynchronizes. Short inactive states, such as opening a system sheet, do not unnecessarily reconnect. Disposed controllers reject all late responses.
 
-Tap the top-right sliders or connection strip to open **Connection lab**. Select automatic/full/degraded/minimal and observe the server-reported tier/rate. Turn on **Simulate disconnection** to close the real socket and retain stale values; turn it off to reconnect and recover. RTT, jitter, malformed-message count and book recoveries are shown there.
+Tap the top-right sliders or connection strip to open **Connection lab**. Select automatic/full/degraded/minimal and observe the server-reported tier/rate. Turn on **Simulate disconnection** to close the real socket and retain stale values; turn it off to reconnect and recover. RTT, jitter, malformed-message count, book recoveries and observed chart Hz over the last five seconds are shown there. The initial five-second window ramps up; this measured rate is distinct from the target maximum. **Drop one book update** discards one incoming delta on purpose; the next sequence gap triggers a fresh REST snapshot and increments the recovery count.
 
 Deep link: `twospoon://market/BTC-USD`.
 
@@ -113,7 +125,7 @@ flutter test
 flutter build apk --release
 ```
 
-Backend tests cover hysteresis, missing reports, per-client overrides, deterministic trades, exact candles, book reconstruction, REST validation and real WebSocket sessions. Flutter tests cover buffered snapshot/delta recovery, epoch mismatch, out-of-order input, atomic malformed-candle rejection, revision merges, late interval HTTP responses, stale caches and disposal. Widget tests exercise narrow/wide layouts, larger text and chart inspection. See `docs/verification.md` for actual run results and remaining delivery checks.
+Backend tests cover hysteresis, missing reports, per-client overrides, deterministic trades, exact candles, book reconstruction, REST validation and real WebSocket sessions. Flutter tests cover buffered snapshot/delta recovery, epoch mismatch, out-of-order input, atomic malformed-candle rejection, revision merges, late interval HTTP responses, stale caches and disposal. Widget tests exercise narrow/wide layouts, larger text and chart inspection. See `docs/verification.md` for actual automated and physical-device results.
 
 ## Packages, references and limitations
 
@@ -121,4 +133,4 @@ Backend uses FastAPI, Uvicorn (WebSocket support), HTTPX and pytest. Mobile uses
 
 Implementation references: [FastAPI WebSockets](https://fastapi.tiangolo.com/advanced/websockets/), [Flutter simple state management](https://docs.flutter.dev/data-and-backend/state-mgmt/simple). Market information hierarchy was informed by [Coinbase's dashboard overview](https://help.coinbase.com/coinbase/trading-and-funding/advanced-trade/dashboard-overview) and [Kraken's trading interface guide](https://support.kraken.com/articles/kraken-pro-trading-interface-guide).
 
-The demo has no persistence, authentication, public deployment, real exchange matching, order entry, or multi-worker coordination. Reconnect correctness is favored over maintaining an unbounded backlog. Cached values survive connection loss and backgrounding, not process termination. Device performance and recording evidence must be checked separately from unit tests. iOS would reuse the Dart application and protocol, add an iOS target with signing, associated URL handling and an appropriate ATS development exception, and verify lifecycle, VoiceOver, safe areas and physical-device performance. No iOS build is required or included.
+The demo has no persistence, authentication, public deployment, real exchange matching, order entry, or multi-worker coordination. Reconnect correctness is favored over maintaining an unbounded backlog. Cached values survive connection loss and backgrounding, not process termination. The physical-device recording demonstrates functionality; no release FPS benchmark is claimed. iOS would reuse the Dart application and protocol, add an iOS target with signing, associated URL handling and an appropriate ATS development exception, and verify lifecycle, VoiceOver, safe areas and physical-device performance. No iOS build is required or included.
