@@ -4,8 +4,8 @@ A Flutter Android market screen and a deterministic FastAPI cryptocurrency simul
 
 ## Deliverables
 
-- Planned public repository: `Prince2347X/twospoon-ai` (publication awaiting approval)
-- Android APK: `mobile/build/app/outputs/flutter-apk/app-release.apk` (built; release publication awaiting approval)
+- Public repository: `Prince2347X/twospoon-ai`
+- Android APK: `mobile/build/app/outputs/flutter-apk/app-release.apk`
 - [Physical-device screen recording](docs/media/twospoon-demo.mp4) (60 seconds)
 - [Verification results and recording timeline](docs/verification.md): 11 backend tests, 12 Flutter tests, clean analysis, and physical Android interaction checks.
 
